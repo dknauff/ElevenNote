@@ -1,30 +1,27 @@
-﻿using System;
+﻿using ElevenNote.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ElevenNote.Data
+namespace ElevenNote.Models
 {
-    public class Note
+    public class NoteDetail
     {
-        [Key]
         public int NoteId { get; set; }
-        [Required]
-        public Guid OwnerId { get; set; }
-        [Required]
         public string Title { get; set; }
-        [Required]
         public string Content { get; set; }
-        [Required]
+        [Display(Name="Created")]
         public DateTimeOffset CreatedUtc { get; set; }
-
+        [Display(Name="Modified")]
         public DateTimeOffset? ModifiedUtc { get; set; }
-        //[Required]
-        //public int CategoryId { get; set; }
-        //[ForeignKey(nameof(CategoryId))]
-        //public virtual Category Category { get; set; }
+        
+        public int CategoryId { get; set; }
+        [ForeignKey(nameof(CategoryId))]
+        public virtual Category Category { get; set; }
     }
 }

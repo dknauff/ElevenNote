@@ -8,103 +8,99 @@ using System.Threading.Tasks;
 
 namespace ElevenNote.Services
 {
-    public class NoteService
+    public class CategoryService
     {
         private readonly Guid _userId;
 
-        public NoteService(Guid userId)
+        public CategoryService(Guid userId)
         {
             _userId = userId;
         }
 
-        public bool CreateNote(NoteCreate model)
+        public bool CreateCategory(CategoryCreate model)
         {
             var entity =
-                new Note()
+                new Category()
                 {
                     OwnerId = _userId,
                     Title = model.Title,
-                    Content = model.Content,
                     CreatedUtc = DateTimeOffset.Now
                 };
 
             using (var ctx = new ApplicationDbContext())
             {
-                ctx.Notes.Add(entity);
+                ctx.Categories.Add(entity);
                 return ctx.SaveChanges() == 1;
             }
         }
 
-        public IEnumerable<NoteListItem> GetNotes()
+        public IEnumerable<CategoryListItem> GetCategories()
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var query =
                     ctx
-                        .Notes
+                        .Categories
                         .Where(e => e.OwnerId == _userId)
                         .Select(
                             e =>
-                                new NoteListItem
+                                new CategoryListItem
                                 {
-                                    NoteId = e.NoteId,
+                                    CategoryId = e.CategoryId,
                                     Title = e.Title,
                                     CreatedUtc = e.CreatedUtc
                                 }
-                         );
+                        );
 
                 return query.ToArray();
             }
         }
 
-        public NoteDetail GetNoteById(int id)
+        public CategoryDetail GetCategoryById(int id)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
-                        .Notes
-                        .Single(e => e.NoteId == id && e.OwnerId == _userId);
+                        .Categories
+                        .Single(e => e.CategoryId == id && e.OwnerId == _userId);
                 return
-                    new NoteDetail
+                    new CategoryDetail
                     {
-                        NoteId = entity.NoteId,
+                        CategoryId = entity.CategoryId,
                         Title = entity.Title,
-                        Content = entity.Content,
                         CreatedUtc = entity.CreatedUtc,
                         ModifiedUtc = entity.ModifiedUtc,
                     };
             }
         }
 
-        public bool UpdateNote(NoteEdit model)
+        public bool UpdateCategory(CategoryEdit model)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
-                        .Notes
-                        .Single(e => e.NoteId == model.NoteId && e.OwnerId == _userId);
+                        .Categories
+                        .Single(e => e.CategoryId == model.CategoryId && e.OwnerId == _userId);
 
                 entity.Title = model.Title;
-                entity.Content = model.Content;
                 entity.ModifiedUtc = DateTimeOffset.UtcNow;
-                //entity.CategoryId = model.CategoryId;
 
                 return ctx.SaveChanges() == 1;
             }
         }
 
-        public bool DeleteNote(int noteId)
+        public bool DeleteCategory(int categoryID)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
-                        .Notes
-                        .Single(e => e.NoteId == noteId && e.OwnerId == _userId);
+                        .Categories
+                        .Single(e => e.CategoryId == categoryID && e.OwnerId == _userId);
 
-                ctx.Notes.Remove(entity);
+                ctx.Categories.Remove(entity);
 
                 return ctx.SaveChanges() == 1;
             }
