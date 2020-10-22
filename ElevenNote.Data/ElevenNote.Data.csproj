@@ -90,6 +90,18 @@
     <Compile Include="Migrations\202010182334039_commented out 5.0.Designer.cs">
       <DependentUpon>202010182334039_commented out 5.0.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010221613323_category.cs" />
+    <Compile Include="Migrations\202010221613323_category.Designer.cs">
+      <DependentUpon>202010221613323_category.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010221900500_OwnerId.cs" />
+    <Compile Include="Migrations\202010221900500_OwnerId.Designer.cs">
+      <DependentUpon>202010221900500_OwnerId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010221947466_RemoveExtra.cs" />
+    <Compile Include="Migrations\202010221947466_RemoveExtra.Designer.cs">
+      <DependentUpon>202010221947466_RemoveExtra.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Note.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -101,6 +113,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202010182334039_commented out 5.0.resx">
       <DependentUpon>202010182334039_commented out 5.0.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010221613323_category.resx">
+      <DependentUpon>202010221613323_category.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010221900500_OwnerId.resx">
+      <DependentUpon>202010221900500_OwnerId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010221947466_RemoveExtra.resx">
+      <DependentUpon>202010221947466_RemoveExtra.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

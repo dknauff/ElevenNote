@@ -25,6 +25,7 @@ namespace ElevenNote.Services
                     OwnerId = _userId,
                     Title = model.Title,
                     Content = model.Content,
+                    CategoryId = model.CategoryId,
                     CreatedUtc = DateTimeOffset.Now
                 };
 
@@ -49,7 +50,10 @@ namespace ElevenNote.Services
                                 {
                                     NoteId = e.NoteId,
                                     Title = e.Title,
-                                    CreatedUtc = e.CreatedUtc
+                                    Content = e.Content,
+                                    CreatedUtc = e.CreatedUtc,
+                                    CategoryId = e.CategoryId,
+                                    Category = e.Category
                                 }
                          );
 

@@ -13,9 +13,9 @@ namespace ElevenNote.Models
     {
         public int NoteId { get; set; }
         public string Title { get; set; }
-        [Display(Name ="Created")]
+        [Display(Name = "Created")]
+        public string Content { get; set; } 
         public DateTimeOffset CreatedUtc { get; set; }
-
         public int CategoryId { get; set; }
         [ForeignKey(nameof(CategoryId))]
         public virtual Category Category { get; set; }

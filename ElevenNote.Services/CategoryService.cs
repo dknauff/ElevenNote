@@ -11,7 +11,7 @@ namespace ElevenNote.Services
     public class CategoryService
     {
         private readonly Guid _userId;
-
+  
         public CategoryService(Guid userId)
         {
             _userId = userId;
@@ -22,9 +22,8 @@ namespace ElevenNote.Services
             var entity =
                 new Category()
                 {
-                    OwnerId = _userId,
                     Title = model.Title,
-                    CreatedUtc = DateTimeOffset.Now
+                    OwnerId = _userId
                 };
 
             using (var ctx = new ApplicationDbContext())
@@ -46,9 +45,7 @@ namespace ElevenNote.Services
                             e =>
                                 new CategoryListItem
                                 {
-                                    CategoryId = e.CategoryId,
-                                    Title = e.Title,
-                                    CreatedUtc = e.CreatedUtc
+                                    Title = e.Title
                                 }
                         );
 
@@ -68,9 +65,7 @@ namespace ElevenNote.Services
                     new CategoryDetail
                     {
                         CategoryId = entity.CategoryId,
-                        Title = entity.Title,
-                        CreatedUtc = entity.CreatedUtc,
-                        ModifiedUtc = entity.ModifiedUtc,
+                        Title = entity.Title
                     };
             }
         }
@@ -85,7 +80,6 @@ namespace ElevenNote.Services
                         .Single(e => e.CategoryId == model.CategoryId && e.OwnerId == _userId);
 
                 entity.Title = model.Title;
-                entity.ModifiedUtc = DateTimeOffset.UtcNow;
 
                 return ctx.SaveChanges() == 1;
             }
